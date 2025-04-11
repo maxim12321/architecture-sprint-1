@@ -1,9 +1,31 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import * as auth from "../utils/auth.js";
 
-function Register ({ onRegister }){
+import '../blocks/auth-form/auth-form.css';
+
+function Register (){
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
+
+  function onRegister(userData) {
+    auth
+      .register(email, password)
+      .then((res) => {
+        dispatchEvent(new CustomEvent("register-result", {
+          detail: {
+            successful: true,
+            userData: res,
+          }
+        }));
+      })
+      .catch((err) => {
+        dispatchEvent(new CustomEvent("register-result", {
+          detail: {
+            successful: false,
+          }
+        }));
+      });
+  }
 
   function handleSubmit(e){
     e.preventDefault();
@@ -13,6 +35,7 @@ function Register ({ onRegister }){
     }
     onRegister(userData);
   }
+
   return (
     <div className="auth-form">
       <form className="auth-form__form" onSubmit={handleSubmit}>
@@ -31,7 +54,7 @@ function Register ({ onRegister }){
         </div>
         <div className="auth-form__wrapper">
           <button className="auth-form__button" type="submit">Зарегистрироваться</button>
-          <p className="auth-form__text">Уже зарегистрированы? <Link className="auth-form__link" to="/signin">Войти</Link></p>
+          <p className="auth-form__text">Уже зарегистрированы? <a className="auth-form__link" href="/signin">Войти</a></p>
         </div>
       </form>
     </div>

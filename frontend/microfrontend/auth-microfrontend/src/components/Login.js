@@ -1,19 +1,38 @@
 import React from 'react';
+import * as auth from "../utils/auth.js";
 
 import '../blocks/login/login.css';
+import '../blocks/auth-form/auth-form.css';
 
-function Login ({ onLogin }){
+function Login (){
   const [email, setEmail] = React.useState('');
   const [password, setPassword] = React.useState('');
 
+  function onLogin() {
+    auth
+      .login(email, password)
+      .then((res) => {
+        dispatchEvent(new CustomEvent("login-result", {
+          detail: {
+            successful: true,
+          }
+        }));
+      })
+      .catch((err) => {
+        console.log(err);
+        dispatchEvent(new CustomEvent("login-result", {
+          detail: {
+            successful: false,
+          }
+        }));
+      });
+  }
+
   function handleSubmit(e){
     e.preventDefault();
-    const userData = {
-      email,
-      password
-    }
-    onLogin(userData);
+    onLogin();
   }
+
   return (
     <div className="auth-form">
       <form className="auth-form__form" onSubmit={handleSubmit}>
