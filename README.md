@@ -1,4 +1,4 @@
-# Architecture Sprint 1
+# Architecture Sprint 1. Часть 1
 
 ## Наблюдения по коду
 
@@ -222,3 +222,8 @@ npm start
 ```
 
 После этого на `localhost:8080` должен быть полностью рабочий сайт.
+
+# Часть 2
+
+Финальная диаграмма лежит в корне проекта, а также доступна на гугл диске по ссылке:
+https://drive.google.com/file/d/1DWboPyvRlzjewFORrCP6RTvkTB-dfIFF/view?usp=sharing
